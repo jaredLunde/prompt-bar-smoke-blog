@@ -102,3 +102,17 @@ a {
   color: var(--muted);
   font-size: 0.85rem;
 }
+
+/* Ease the list in so the first paint is not a wall of text. */
+@keyframes settle-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.post-list {
+  animation: settle-in 2.6s ease-in both;
+}
