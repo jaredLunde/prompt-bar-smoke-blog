@@ -114,5 +114,11 @@ a {
 }
 
 .post-list {
-  animation: settle-in 2.6s ease-in both;
+  animation: settle-in 200ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-list {
+    animation: none;
+  }
 }
