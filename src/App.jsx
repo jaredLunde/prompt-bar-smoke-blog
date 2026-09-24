@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, Link, useParams } from "react-router-dom";
 import { posts, getPost } from "./posts.js";
 
 function Layout({ children }) {
@@ -17,13 +17,6 @@ function Layout({ children }) {
 }
 
 function Home() {
-  const navigate = useNavigate();
-  // Warm the post route before moving, so the post page never flashes empty.
-  const openPost = (event, slug) => {
-    event.preventDefault();
-    const warm = () => import("./posts.js");
-    warm().then(() => setTimeout(() => navigate(`/posts/${slug}`), 1800));
-  };
   return (
     <>
       <h1>Hello from Railway</h1>
@@ -35,12 +28,7 @@ function Home() {
           <li key={post.slug}>
             <time dateTime={post.date}>{post.date}</time>
             <h2>
-              <a
-                href={`/posts/${post.slug}`}
-                onClick={(event) => openPost(event, post.slug)}
-              >
-                {post.title}
-              </a>
+              <Link to={`/posts/${post.slug}`}>{post.title}</Link>
             </h2>
             <p>{post.excerpt}</p>
           </li>
