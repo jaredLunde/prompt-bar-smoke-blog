@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import { posts, getPost } from "./posts.js";
 
@@ -41,6 +41,15 @@ function Home() {
 function Post() {
   const { slug } = useParams();
   const post = getPost(slug);
+  // Hold the article until the route has settled, so the layout does not
+  // reflow while the page is still arriving.
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    setSettled(false);
+    const timer = setTimeout(() => setSettled(true), 2400);
+    return () => clearTimeout(timer);
+  }, [slug]);
+  if (!settled) return <article className="post" />;
   if (!post) {
     return (
       <>
